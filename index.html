@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus IA - Desenvolvimento Humano Potencializado por IA</title>
+    <title>Solan.ia - Desenvolvimento Humano Potencializado por IA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset e configurações gerais */
         * {
             margin: 0;
             padding: 0;
@@ -16,23 +15,20 @@
         }
 
         :root {
-            --primary: #3a36e0;
-            --primary-dark: #2a27b8;
+            --primary: #6c63ff;
+            --primary-dark: #4a44cc;
             --secondary: #00d9c0;
-            --accent: #ff4e8c;
-            --accent-glow: rgba(0, 217, 192, 0.3);
+            --accent: #ff6b8b;
             --dark: #121826;
             --darker: #0a0d17;
             --light: #f8f9ff;
             --gray: #8c93b3;
             --gray-light: #e2e6f9;
-            --gradient-primary: linear-gradient(135deg, #3a36e0 0%, #6b68ff 100%);
+            --gradient-primary: linear-gradient(135deg, #6c63ff 0%, #8a84ff 100%);
             --gradient-secondary: linear-gradient(135deg, #00d9c0 0%, #00b8a9 100%);
             --gradient-dark: linear-gradient(135deg, #121826 0%, #1e2338 100%);
-            --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
             --shadow: 0 10px 30px rgba(18, 24, 38, 0.1);
             --shadow-lg: 0 20px 50px rgba(18, 24, 38, 0.15);
-            --shadow-glow: 0 0 30px rgba(0, 217, 192, 0.5);
             --border-radius: 16px;
             --transition: all 0.3s ease;
         }
@@ -44,7 +40,6 @@
             overflow-x: hidden;
         }
 
-        /* Container principal */
         .container {
             width: 100%;
             max-width: 1200px;
@@ -154,6 +149,27 @@
             color: var(--primary);
         }
 
+        .btn-primary {
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
         .btn-menu {
             display: none;
             background: none;
@@ -178,7 +194,7 @@
             right: 0;
             width: 50%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%233a36e0" fill-opacity="0.03" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%236c63ff" fill-opacity="0.03" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"/></svg>');
             background-size: cover;
         }
 
@@ -222,7 +238,7 @@
             flex-wrap: wrap;
         }
 
-        .btn-primary {
+        .hero-btn-primary {
             padding: 18px 36px;
             border-radius: 50px;
             background: var(--gradient-primary);
@@ -238,12 +254,12 @@
             gap: 10px;
         }
 
-        .btn-primary:hover {
+        .hero-btn-primary:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
         }
 
-        .btn-secondary {
+        .hero-btn-secondary {
             padding: 18px 36px;
             border-radius: 50px;
             background: white;
@@ -258,7 +274,7 @@
             gap: 10px;
         }
 
-        .btn-secondary:hover {
+        .hero-btn-secondary:hover {
             background: var(--primary);
             color: white;
         }
@@ -273,6 +289,302 @@
             max-width: 100%;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-lg);
+        }
+
+        /* Modal de Login */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .auth-modal {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .auth-header {
+            padding: 40px 40px 20px;
+            text-align: center;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .auth-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .auth-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 20px;
+            background: white;
+            border: none;
+            color: var(--gray);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .auth-content {
+            padding: 40px;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--darker);
+            font-size: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--gray-light);
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+            color: var(--dark);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input {
+            accent-color: var(--primary);
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: var(--gray);
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray-light);
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 12px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-btn:hover {
+            background: var(--gray-light);
+            transform: translateY(-3px);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .message.error {
+            background: rgba(255, 87, 87, 0.1);
+            border: 1px solid rgba(255, 87, 87, 0.3);
+            color: #ff5757;
+        }
+
+        .message.success {
+            background: rgba(0, 217, 192, 0.1);
+            border: 1px solid rgba(0, 217, 192, 0.3);
+            color: var(--secondary);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
         }
 
         /* Seção de Recursos */
@@ -382,11 +694,6 @@
             animation: fadeIn 0.8s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .testimonial-text {
             font-size: 22px;
             font-style: italic;
@@ -424,457 +731,6 @@
 
         .slider-dot.active {
             background: var(--secondary);
-        }
-
-        /* Página de Login/Registro */
-        .login-page {
-            display: none;
-            min-height: 100vh;
-            padding: 120px 0 60px;
-            background: radial-gradient(circle at 30% 20%, rgba(26, 26, 26, 0.8) 0%, rgba(0, 0, 0, 0.9) 70%);
-            color: white;
-        }
-
-        .login-page.active {
-            display: block;
-        }
-
-        .auth-panel {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            background: var(--gradient-card);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .auth-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%);
-            animation: shine 10s infinite linear;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .auth-header {
-            padding: 40px 40px 20px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .auth-title {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: white;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .auth-subtitle {
-            font-size: 18px;
-            color: var(--gray);
-            margin-bottom: 30px;
-        }
-
-        .auth-tabs {
-            display: flex;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 20px;
-            background: transparent;
-            border: none;
-            color: var(--gray);
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .auth-tab.active {
-            color: var(--secondary);
-        }
-
-        .auth-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--gradient-secondary);
-        }
-
-        .auth-content {
-            padding: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: white;
-            font-size: 16px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 18px 22px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 16px;
-            transition: var(--transition);
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-        }
-
-        .form-input:focus {
-            border-color: var(--secondary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 217, 192, 0.2);
-        }
-
-        .password-container {
-            position: relative;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--gray);
-            cursor: pointer;
-        }
-
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .remember-me input {
-            accent-color: var(--secondary);
-        }
-
-        .forgot-password {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 20px;
-            background: var(--gradient-secondary);
-            color: var(--dark);
-            border: none;
-            border-radius: 15px;
-            font-weight: 800;
-            font-size: 18px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .form-submit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            transition: left 0.6s ease;
-            z-index: -1;
-        }
-
-        .form-submit:hover::before {
-            left: 0;
-        }
-
-        .form-submit:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 30px;
-            color: var(--gray);
-            font-size: 15px;
-        }
-
-        .form-footer a {
-            color: var(--secondary);
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 30px 0;
-            color: var(--gray);
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .divider span {
-            padding: 0 15px;
-        }
-
-        .social-login {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .social-btn {
-            flex: 1;
-            padding: 15px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .social-btn.google:hover {
-            background: #DB4437;
-            border-color: #DB4437;
-        }
-
-        .social-btn.facebook:hover {
-            background: #4267B2;
-            border-color: #4267B2;
-        }
-
-        /* Chat Page */
-        .chat-page {
-            display: none;
-            min-height: 100vh;
-            background: var(--darker);
-            color: white;
-        }
-
-        .chat-page.active {
-            display: block;
-        }
-
-        .chat-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 20px 20px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .chat-sidebar {
-            width: 300px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            height: calc(100vh - 120px);
-            overflow-y: auto;
-        }
-
-        .chat-main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chat-header {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .chat-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .chat-title {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .chat-messages {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-
-        .message {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 15px;
-            max-width: 80%;
-        }
-
-        .message.user {
-            background: var(--gradient-primary);
-            margin-left: auto;
-        }
-
-        .message.ai {
-            background: rgba(255, 255, 255, 0.1);
-            margin-right: auto;
-        }
-
-        .chat-input-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            font-size: 16px;
-        }
-
-        .chat-send {
-            padding: 15px 30px;
-            background: var(--gradient-secondary);
-            color: var(--dark);
-            border: none;
-            border-radius: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .chat-send:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Seção de CTA */
-        .cta {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #f0f3ff 0%, #e8ecff 100%);
-            text-align: center;
-        }
-
-        .cta-title {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 24px;
-            color: var(--darker);
-        }
-
-        .cta-subtitle {
-            font-size: 20px;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 50px;
-        }
-
-        /* Formulário de criação de conta */
-        .account-form {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 50px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            text-align: left;
-        }
-
-        .form-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: var(--darker);
-            text-align: center;
         }
 
         /* Footer */
@@ -968,16 +824,6 @@
                 width: 100%;
                 opacity: 0.1;
             }
-
-            .chat-container {
-                flex-direction: column;
-            }
-
-            .chat-sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 200px;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1005,7 +851,7 @@
                 font-size: 18px;
             }
 
-            .btn-primary, .btn-secondary {
+            .hero-btn-primary, .hero-btn-secondary {
                 padding: 16px 28px;
                 font-size: 16px;
             }
@@ -1014,25 +860,21 @@
                 font-size: 36px;
             }
 
-            .account-form {
+            .auth-modal {
+                max-width: 90%;
+            }
+
+            .auth-header, .auth-content {
                 padding: 30px;
+            }
+
+            .social-login {
+                flex-direction: column;
             }
 
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .auth-panel {
-                margin: 0 20px;
-            }
-
-            .auth-header, .auth-content {
-                padding: 30px 25px;
-            }
-
-            .social-login {
-                flex-direction: column;
             }
         }
 
@@ -1050,7 +892,7 @@
                 align-items: center;
             }
 
-            .btn-primary, .btn-secondary {
+            .hero-btn-primary, .hero-btn-secondary {
                 width: 100%;
                 justify-content: center;
             }
@@ -1059,12 +901,8 @@
                 font-size: 30px;
             }
 
-            .account-form {
-                padding: 20px;
-            }
-
             .auth-header, .auth-content {
-                padding: 25px 20px;
+                padding: 20px;
             }
 
             .auth-tab {
@@ -1078,9 +916,9 @@
     <!-- Header -->
     <header id="header">
         <div class="container header-container">
-            <a href="#" class="logo" id="homeLogo">
+            <a href="#" class="logo">
                 <i class="fas fa-brain logo-icon"></i>
-                <span>Nexus</span> IA
+                <span>Solan</span>.ia
             </a>
 
             <button class="btn-menu" id="menuToggle">
@@ -1089,491 +927,487 @@
 
             <nav id="mainNav">
                 <ul>
-                    <li><a href="#home" class="nav-link">Início</a></li>
-                    <li><a href="#features" class="nav-link">Recursos</a></li>
-                    <li><a href="#testimonials" class="nav-link">Depoimentos</a></li>
-                    <li><a href="#about" class="nav-link">Sobre</a></li>
-                    <li><a href="#pricing" class="nav-link">Preços</a></li>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#features">Recursos</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#pricing">Preços</a></li>
                 </ul>
             </nav>
 
             <div class="header-actions">
-                <button class="btn-login" id="loginBtn">Entrar</button>
-                <button class="btn-primary" id="createAccountBtn">
+                <button class="btn-login" id="openLoginModal">Entrar</button>
+                <button class="btn-primary" id="openSignupModal">
                     <i class="fas fa-user-plus"></i> Criar Conta
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Página Principal (Landing Page) -->
-    <div class="main-content active" id="mainContent">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Potencialize seu <span>desenvolvimento humano</span> com IA</h1>
-                    <p class="hero-subtitle">
-                        A Nexus IA combina inteligência artificial avançada com psicologia comportamental para ajudar você a alcançar seu máximo potencial. Descubra novas habilidades, supere limites e transforme sua vida.
-                    </p>
-                    <div class="hero-actions">
-                        <button class="btn-primary" id="heroCreateAccount">
-                            <i class="fas fa-rocket"></i> Comece Agora Gratuitamente
-                        </button>
-                        <button class="btn-secondary" id="learnMore">
-                            <i class="fas fa-play-circle"></i> Ver Demonstração
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <!-- Imagem ilustrativa de IA e desenvolvimento humano -->
-                    <div style="width: 100%; max-width: 500px; background: var(--gradient-primary); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-lg);">
-                        <div style="background: white; border-radius: calc(var(--border-radius) - 10px); padding: 20px; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                                <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                                    <i class="fas fa-brain" style="color: white; font-size: 24px;"></i>
-                                </div>
-                                <div>
-                                    <h3 style="margin: 0; color: var(--darker);">Assistente Pessoal IA</h3>
-                                    <p style="margin: 5px 0 0; color: var(--gray); font-size: 14px;">Análise de potencial em tempo real</p>
-                                </div>
-                            </div>
-                            <div style="width: 100%; background: #f0f3ff; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
-                                <p style="margin: 0; color: var(--darker);"><strong>Seu progresso esta semana:</strong></p>
-                                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                                    <span style="color: var(--gray);">Habilidades cognitivas</span>
-                                    <span style="color: var(--primary); font-weight: bold;">+24%</span>
-                                </div>
-                                <div style="height: 8px; background: var(--gray-light); border-radius: 4px; margin-top: 5px; overflow: hidden;">
-                                    <div style="width: 75%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="width: 100%; background: #f0f3ff; border-radius: 12px; padding: 15px;">
-                                <p style="margin: 0; color: var(--darker);"><strong>Próximo objetivo recomendado:</strong></p>
-                                <p style="margin: 10px 0 0; color: var(--gray); font-size: 14px;">Desenvolver resiliência emocional através de exercícios de mindfulness</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Recursos -->
-        <section class="features" id="features">
-            <div class="container">
-                <h2 class="section-title">Como a Nexus IA transforma vidas</h2>
-                <p class="section-subtitle">
-                    Utilizamos algoritmos de IA avançados para personalizar completamente sua jornada de desenvolvimento humano
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Potencialize seu <span>desenvolvimento humano</span> com IA</h1>
+                <p class="hero-subtitle">
+                    A Solan.ia combina inteligência artificial avançada com psicologia comportamental para ajudar você a alcançar seu máximo potencial. Descubra novas habilidades, supere limites e transforme sua vida.
                 </p>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="feature-title">Análise de Potencial</h3>
-                        <p class="feature-desc">
-                            Identificamos seus pontos fortes e áreas de desenvolvimento através de avaliações baseadas em IA.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-route"></i>
-                        </div>
-                        <h3 class="feature-title">Planos Personalizados</h3>
-                        <p class="feature-desc">
-                            Crie rotas de desenvolvimento únicas, adaptadas aos seus objetivos e estilo de aprendizagem.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3 class="feature-title">Coach de IA 24/7</h3>
-                        <p class="feature-desc">
-                            Tenha um assistente pessoal de IA sempre disponível para orientação e suporte emocional.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="feature-title">Comunidade Global</h3>
-                        <p class="feature-desc">
-                            Conecte-se com pessoas em jornadas similares para trocar experiências e apoio mútuo.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Depoimentos -->
-        <section class="testimonials" id="testimonials">
-            <div class="container">
-                <h2 class="section-title">Histórias de Transformação</h2>
-                <p class="section-subtitle">
-                    Veja como a Nexus IA ajudou pessoas a alcançarem seu potencial máximo
-                </p>
-
-                <div class="testimonials-slider">
-                    <div class="testimonial-slide active" id="slide1">
-                        <p class="testimonial-text">
-                            "A Nexus IA mudou completamente minha abordagem ao desenvolvimento pessoal. Em 6 meses, alcancei metas que achava que levaria anos. A análise de IA identificou padrões que nem eu percebia."
-                        </p>
-                        <p class="testimonial-author">Mariana Silva</p>
-                        <p class="testimonial-role">Psicóloga e Coach Executiva</p>
-                    </div>
-
-                    <div class="testimonial-slide" id="slide2">
-                        <p class="testimonial-text">
-                            "Como empreendedor, sempre busquei formas de melhorar minha produtividade e criatividade. A Nexus IA forneceu insights valiosos que me ajudaram a otimizar meu tempo e desenvolver habilidades de liderança que transformaram minha empresa."
-                        </p>
-                        <p class="testimonial-author">Carlos Mendonça</p>
-                        <p class="testimonial-role">CEO da TechInova Solutions</p>
-                    </div>
-
-                    <div class="testimonial-slide" id="slide3">
-                        <p class="testimonial-text">
-                            "Depois de usar a Nexus IA por apenas 3 meses, notei uma melhora significativa na minha confiança e capacidade de comunicação. Os exercícios personalizados são incríveis e realmente funcionam!"
-                        </p>
-                        <p class="testimonial-author">Fernanda Costa</p>
-                        <p class="testimonial-role">Estudante de Medicina</p>
-                    </div>
-
-                    <div class="slider-controls">
-                        <button class="slider-dot active" data-slide="0"></button>
-                        <button class="slider-dot" data-slide="1"></button>
-                        <button class="slider-dot" data-slide="2"></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA com formulário de criação de conta -->
-        <section class="cta" id="cta">
-            <div class="container">
-                <h2 class="cta-title">Comece sua jornada hoje</h2>
-                <p class="cta-subtitle">
-                    Junte-se a mais de 50.000 pessoas que estão transformando suas vidas com a Nexus IA. Crie sua conta gratuitamente e tenha acesso a uma avaliação inicial completa.
-                </p>
-
-                <div class="account-form" id="accountForm">
-                    <h3 class="form-title">Criar Conta Gratuita</h3>
-                    <form id="createAccountForm">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Nome Completo</label>
-                            <input type="text" id="name" class="form-input" placeholder="Digite seu nome completo" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="email">E-mail</label>
-                            <input type="email" id="email" class="form-input" placeholder="seu.email@exemplo.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="password">Senha</label>
-                            <input type="password" id="password" class="form-input" placeholder="Crie uma senha segura" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="goal">Objetivo Principal</label>
-                            <select id="goal" class="form-input" required>
-                                <option value="" disabled selected>Selecione seu objetivo</option>
-                                <option value="career">Crescimento Profissional</option>
-                                <option value="emotional">Desenvolvimento Emocional</option>
-                                <option value="skills">Aquisição de Habilidades</option>
-                                <option value="productivity">Aumento de Produtividade</option>
-                                <option value="wellness">Bem-estar e Saúde Mental</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn-primary" style="width: 100%;">
-                            <i class="fas fa-user-plus"></i> Criar Minha Conta Gratuita
-                        </button>
-
-                        <div class="form-footer" style="margin-top: 20px;">
-                            Ao criar uma conta, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <a href="#" class="logo">
-                            <i class="fas fa-brain logo-icon"></i>
-                            <span>Nexus</span> IA
-                        </a>
-                        <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px; max-width: 300px;">
-                            Potencializando o desenvolvimento humano através de inteligência artificial avançada e psicologia comportamental.
-                        </p>
-                    </div>
-
-                    <div class="footer-col">
-                        <h3>Produto</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">Recursos</a></li>
-                            <li><a href="#">Planos e Preços</a></li>
-                            <li><a href="#">Casos de Uso</a></li>
-                            <li><a href="#">API para Desenvolvedores</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-col">
-                        <h3>Empresa</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">Sobre Nós</a></li>
-                            <li><a href="#">Carreiras</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contato</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-col">
-                        <h3>Suporte</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">Central de Ajuda</a></li>
-                            <li><a href="#">Comunidade</a></li>
-                            <li><a href="#">Status do Serviço</a></li>
-                            <li><a href="#">Política de Privacidade</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="footer-bottom">
-                    <p>&copy; 2023 Nexus IA. Todos os direitos reservados.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Página de Login/Registro -->
-    <div class="login-page" id="loginPage">
-        <div class="container">
-            <div class="auth-panel">
-                <div class="auth-header">
-                    <h1 class="auth-title">Acesse a NeuroMente</h1>
-                    <p class="auth-subtitle">Entre na primeira IA que pensa antes de agir</p>
-                    
-                    <div class="auth-tabs">
-                        <button class="auth-tab active" data-tab="login">Entrar</button>
-                        <button class="auth-tab" data-tab="signup">Criar Conta</button>
-                    </div>
-                </div>
-                
-                <div class="auth-content">
-                    <!-- Mensagens -->
-                    <div id="errorMessage" class="message error" style="display: none;">
-                        <i class="fas fa-exclamation-circle"></i> <span id="errorText">E-mail ou senha incorretos. Tente novamente.</span>
-                    </div>
-                    
-                    <div id="successMessage" class="message success" style="display: none;">
-                        <i class="fas fa-check-circle"></i> <span id="successText">Conta criada com sucesso! Redirecionando...</span>
-                    </div>
-                    
-                    <!-- Formulário de Login -->
-                    <form id="loginForm" class="auth-form active">
-                        <div class="form-group">
-                            <label class="form-label" for="loginEmail">E-mail</label>
-                            <input type="email" id="loginEmail" class="form-input" placeholder="seu.email@exemplo.com" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="loginPassword">Senha</label>
-                            <div class="password-container">
-                                <input type="password" id="loginPassword" class="form-input" placeholder="Sua senha" required>
-                                <button type="button" class="password-toggle" data-target="loginPassword">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-options">
-                            <label class="remember-me">
-                                <input type="checkbox" id="rememberMe">
-                                <span>Lembrar de mim</span>
-                            </label>
-                            <a href="#" class="forgot-password">Esqueceu a senha?</a>
-                        </div>
-                        
-                        <button type="submit" class="form-submit">
-                            <i class="fas fa-sign-in-alt"></i> Acessar NeuroMente
-                        </button>
-                        
-                        <div class="divider">
-                            <span>ou continue com</span>
-                        </div>
-                        
-                        <div class="social-login">
-                            <button type="button" class="social-btn google">
-                                <i class="fab fa-google"></i> Google
-                            </button>
-                            <button type="button" class="social-btn facebook">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </button>
-                        </div>
-                        
-                        <div class="form-footer">
-                            Não tem uma conta? <a href="#" id="switchToSignup">Crie uma agora</a>
-                        </div>
-                    </form>
-                    
-                    <!-- Formulário de Criação de Conta -->
-                    <form id="signupForm" class="auth-form">
-                        <div class="form-group">
-                            <label class="form-label" for="signupName">Nome Completo</label>
-                            <input type="text" id="signupName" class="form-input" placeholder="Como você gostaria de ser chamado?" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="signupEmail">E-mail</label>
-                            <input type="email" id="signupEmail" class="form-input" placeholder="seu.melhor@email.com" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="signupPassword">Senha</label>
-                            <div class="password-container">
-                                <input type="password" id="signupPassword" class="form-input" placeholder="Crie uma senha segura" required>
-                                <button type="button" class="password-toggle" data-target="signupPassword">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="confirmPassword">Confirmar Senha</label>
-                            <div class="password-container">
-                                <input type="password" id="confirmPassword" class="form-input" placeholder="Digite novamente sua senha" required>
-                                <button type="button" class="password-toggle" data-target="confirmPassword">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="userType">Tipo de Conta</label>
-                            <select id="userType" class="form-input" required>
-                                <option value="" disabled selected>Selecione como você vai usar a Nexus IA</option>
-                                <option value="personal">Uso Pessoal / Desenvolvimento</option>
-                                <option value="professional">Uso Profissional</option>
-                                <option value="creative">Artista / Criador de Conteúdo</option>
-                                <option value="student">Estudante / Pesquisador</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-options">
-                            <label class="remember-me">
-                                <input type="checkbox" id="termsAgreement" required>
-                                <span>Concordo com os <a href="#" style="color: var(--secondary);">Termos de Serviço</a> e <a href="#" style="color: var(--secondary);">Política de Privacidade</a></span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="form-submit">
-                            <i class="fas fa-user-plus"></i> Criar Minha Conta
-                        </button>
-                        
-                        <div class="form-footer">
-                            Já tem uma conta? <a href="#" id="switchToLogin">Faça login</a>
-                        </div>
-                    </form>
-                </div>
-                
-                <div class="auth-extra" style="padding: 20px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-                    <p>Ao acessar, você concorda em contribuir com o desenvolvimento da NeuroMente da Nexus IA.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Página do Chat (simplificada) -->
-    <div class="chat-page" id="chatPage">
-        <div class="chat-container">
-            <div class="chat-sidebar">
-                <h3 style="margin-bottom: 20px;">Conversas Recentes</h3>
-                <div style="background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 10px;">
-                    <strong>Desenvolvimento Pessoal</strong>
-                    <p style="font-size: 12px; opacity: 0.7;">Última mensagem: há 2 minutos</p>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 10px;">
-                    <strong>Metas Profissionais</strong>
-                    <p style="font-size: 12px; opacity: 0.7;">Última mensagem: ontem</p>
-                </div>
-                <button id="logoutBtn" style="width: 100%; padding: 10px; background: var(--gradient-primary); border: none; border-radius: 10px; color: white; font-weight: bold; margin-top: 20px;">
-                    <i class="fas fa-sign-out-alt"></i> Sair
-                </button>
-            </div>
-            
-            <div class="chat-main">
-                <div class="chat-header">
-                    <div class="chat-avatar">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div>
-                        <div class="chat-title">NeuroMente IA</div>
-                        <div style="font-size: 14px; opacity: 0.7;">Online - Pronto para ajudá-lo</div>
-                    </div>
-                </div>
-                
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message ai">
-                        <strong>NeuroMente:</strong> Olá! Eu sou a NeuroMente, sua assistente de IA para desenvolvimento humano. Como posso ajudá-lo hoje?
-                    </div>
-                </div>
-                
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua mensagem...">
-                    <button class="chat-send" id="sendMessage">
-                        <i class="fas fa-paper-plane"></i> Enviar
+                <div class="hero-actions">
+                    <button class="hero-btn-primary" id="heroCreateAccount">
+                        <i class="fas fa-rocket"></i> Comece Agora Gratuitamente
+                    </button>
+                    <button class="hero-btn-secondary" id="learnMore">
+                        <i class="fas fa-play-circle"></i> Ver Demonstração
                     </button>
                 </div>
             </div>
+            <div class="hero-image">
+                <div style="width: 100%; max-width: 500px; background: var(--gradient-primary); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-lg);">
+                    <div style="background: white; border-radius: calc(var(--border-radius) - 10px); padding: 20px; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-brain" style="color: white; font-size: 24px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; color: var(--darker);">Assistente Pessoal IA</h3>
+                                <p style="margin: 5px 0 0; color: var(--gray); font-size: 14px;">Análise de potencial em tempo real</p>
+                            </div>
+                        </div>
+                        <div style="width: 100%; background: #f0f3ff; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                            <p style="margin: 0; color: var(--darker);"><strong>Seu progresso esta semana:</strong></p>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <span style="color: var(--gray);">Habilidades cognitivas</span>
+                                <span style="color: var(--primary); font-weight: bold;">+24%</span>
+                            </div>
+                            <div style="height: 8px; background: var(--gray-light); border-radius: 4px; margin-top: 5px; overflow: hidden;">
+                                <div style="width: 75%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="width: 100%; background: #f0f3ff; border-radius: 12px; padding: 15px;">
+                            <p style="margin: 0; color: var(--darker);"><strong>Próximo objetivo recomendado:</strong></p>
+                            <p style="margin: 10px 0 0; color: var(--gray); font-size: 14px;">Desenvolver resiliência emocional através de exercícios de mindfulness</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Como a Solan.ia transforma vidas</h2>
+            <p class="section-subtitle">
+                Utilizamos algoritmos de IA avançados para personalizar completamente sua jornada de desenvolvimento humano
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Análise de Potencial</h3>
+                    <p class="feature-desc">
+                        Identificamos seus pontos fortes e áreas de desenvolvimento através de avaliações baseadas em IA.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="feature-title">Planos Personalizados</h3>
+                    <p class="feature-desc">
+                        Crie rotas de desenvolvimento únicas, adaptadas aos seus objetivos e estilo de aprendizagem.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Coach de IA 24/7</h3>
+                    <p class="feature-desc">
+                        Tenha um assistente pessoal de IA sempre disponível para orientação e suporte emocional.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Comunidade Global</h3>
+                    <p class="feature-desc">
+                        Conecte-se com pessoas em jornadas similares para trocar experiências e apoio mútuo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Histórias de Transformação</h2>
+            <p class="section-subtitle">
+                Veja como a Solan.ia ajudou pessoas a alcançarem seu potencial máximo
+            </p>
+
+            <div class="testimonials-slider">
+                <div class="testimonial-slide active" id="slide1">
+                    <p class="testimonial-text">
+                        "A Solan.ia mudou completamente minha abordagem ao desenvolvimento pessoal. Em 6 meses, alcancei metas que achava que levaria anos. A análise de IA identificou padrões que nem eu percebia."
+                    </p>
+                    <p class="testimonial-author">Mariana Silva</p>
+                    <p class="testimonial-role">Psicóloga e Coach Executiva</p>
+                </div>
+
+                <div class="testimonial-slide" id="slide2">
+                    <p class="testimonial-text">
+                        "Como empreendedor, sempre busquei formas de melhorar minha produtividade e criatividade. A Solan.ia forneceu insights valiosos que me ajudaram a otimizar meu tempo e desenvolver habilidades de liderança que transformaram minha empresa."
+                    </p>
+                    <p class="testimonial-author">Carlos Mendonça</p>
+                    <p class="testimonial-role">CEO da TechInova Solutions</p>
+                </div>
+
+                <div class="testimonial-slide" id="slide3">
+                    <p class="testimonial-text">
+                        "Depois de usar a Solan.ia por apenas 3 meses, notei uma melhora significativa na minha confiança e capacidade de comunicação. Os exercícios personalizados são incríveis e realmente funcionam!"
+                    </p>
+                    <p class="testimonial-author">Fernanda Costa</p>
+                    <p class="testimonial-role">Estudante de Medicina</p>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="slider-dot active" data-slide="0"></button>
+                    <button class="slider-dot" data-slide="1"></button>
+                    <button class="slider-dot" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Login/Registro -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-header">
+                <h1 class="auth-title">Solan.ia</h1>
+                <p class="auth-subtitle">Junte-se à revolução do desenvolvimento humano</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Entrar</button>
+                <button class="auth-tab" data-tab="signup">Criar Conta</button>
+            </div>
+            
+            <div class="auth-content">
+                <!-- Mensagens -->
+                <div id="errorMessage" class="message error" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
+                </div>
+                
+                <div id="successMessage" class="message success" style="display: none;">
+                    <i class="fas fa-check-circle"></i> <span id="successText"></span>
+                </div>
+                
+                <!-- Formulário de Login -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="seu.email@exemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Senha</label>
+                        <div class="password-container">
+                            <input type="password" id="loginPassword" class="form-input" placeholder="Sua senha" required>
+                            <button type="button" class="password-toggle" data-target="loginPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-sign-in-alt"></i> Entrar na Solan.ia
+                    </button>
+                    
+                    <div class="divider">
+                        <span>ou continue com</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="form-footer">
+                        Não tem uma conta? <a href="#" id="switchToSignup">Crie uma agora</a>
+                    </div>
+                </form>
+                
+                <!-- Formulário de Criação de Conta -->
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="signupName">Nome Completo</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="Como você gostaria de ser chamado?" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="signupEmail">E-mail</label>
+                        <input type="email" id="signupEmail" class="form-input" placeholder="seu.melhor@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="signupPassword">Senha</label>
+                        <div class="password-container">
+                            <input type="password" id="signupPassword" class="form-input" placeholder="Crie uma senha segura" required>
+                            <button type="button" class="password-toggle" data-target="signupPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirmar Senha</label>
+                        <div class="password-container">
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="Digite novamente sua senha" required>
+                            <button type="button" class="password-toggle" data-target="confirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="userType">Tipo de Conta</label>
+                        <select id="userType" class="form-input" required>
+                            <option value="" disabled selected>Selecione como você vai usar a Solan.ia</option>
+                            <option value="personal">Uso Pessoal / Desenvolvimento</option>
+                            <option value="professional">Uso Profissional</option>
+                            <option value="creative">Artista / Criador de Conteúdo</option>
+                            <option value="student">Estudante / Pesquisador</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="termsAgreement" required>
+                            <span>Concordo com os <a href="#" style="color: var(--primary);">Termos de Serviço</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-user-plus"></i> Criar Minha Conta
+                    </button>
+                    
+                    <div class="form-footer">
+                        Já tem uma conta? <a href="#" id="switchToLogin">Faça login</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <i class="fas fa-brain logo-icon"></i>
+                        <span>Solan</span>.ia
+                    </a>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px; max-width: 300px;">
+                        Potencializando o desenvolvimento humano através de inteligência artificial avançada e psicologia comportamental.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Produto</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Planos e Preços</a></li>
+                        <li><a href="#">Casos de Uso</a></li>
+                        <li><a href="#">API para Desenvolvedores</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Empresa</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Suporte</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Status do Serviço</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 Solan.ia. Todos os direitos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Sistema de navegação entre páginas
-        const mainContent = document.getElementById('mainContent');
-        const loginPage = document.getElementById('loginPage');
-        const chatPage = document.getElementById('chatPage');
-        
-        // Função para alternar entre páginas
-        function showPage(page) {
-            // Esconder todas as páginas
-            mainContent.classList.remove('active');
-            loginPage.classList.remove('active');
-            chatPage.classList.remove('active');
-            
-            // Mostrar a página solicitada
-            if (page === 'main') {
-                mainContent.classList.add('active');
-                document.title = 'Nexus IA - Desenvolvimento Humano Potencializado por IA';
-            } else if (page === 'login') {
-                loginPage.classList.add('active');
-                document.title = 'Nexus IA - Acesso à NeuroMente';
-            } else if (page === 'chat') {
-                chatPage.classList.add('active');
-                document.title = 'Nexus IA - NeuroMente Chat';
+        // Sistema de Banco de Dados Simulado
+        class Database {
+            constructor() {
+                this.initDatabase();
             }
             
-            // Fechar menu mobile se aberto
-            if (window.innerWidth <= 768) {
-                mainNav.style.display = 'none';
+            initDatabase() {
+                if (!localStorage.getItem('solan_users')) {
+                    // Usuários de exemplo
+                    const defaultUsers = [
+                        {
+                            id: 1,
+                            name: "Usuário Demo",
+                            email: "demo@solan.ia",
+                            password: "demo123",
+                            userType: "personal",
+                            createdAt: new Date().toISOString(),
+                            plan: "premium",
+                            chatHistory: []
+                        }
+                    ];
+                    localStorage.setItem('solan_users', JSON.stringify(defaultUsers));
+                }
+                
+                if (!localStorage.getItem('solan_sessions')) {
+                    localStorage.setItem('solan_sessions', JSON.stringify([]));
+                }
+            }
+            
+            getUsers() {
+                return JSON.parse(localStorage.getItem('solan_users')) || [];
+            }
+            
+            saveUsers(users) {
+                localStorage.setItem('solan_users', JSON.stringify(users));
+            }
+            
+            createUser(userData) {
+                const users = this.getUsers();
+                const newUser = {
+                    id: Date.now(),
+                    ...userData,
+                    createdAt: new Date().toISOString(),
+                    plan: "free",
+                    chatHistory: []
+                };
+                users.push(newUser);
+                this.saveUsers(users);
+                return newUser;
+            }
+            
+            findUserByEmail(email) {
+                const users = this.getUsers();
+                return users.find(user => user.email === email);
+            }
+            
+            validateUser(email, password) {
+                const user = this.findUserByEmail(email);
+                if (user && user.password === password) {
+                    return user;
+                }
+                return null;
+            }
+            
+            createSession(userId) {
+                const sessions = JSON.parse(localStorage.getItem('solan_sessions')) || [];
+                const newSession = {
+                    id: Date.now(),
+                    userId,
+                    token: this.generateToken(),
+                    createdAt: new Date().toISOString(),
+                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 dias
+                };
+                sessions.push(newSession);
+                localStorage.setItem('solan_sessions', JSON.stringify(sessions));
+                return newSession;
+            }
+            
+            getSession(token) {
+                const sessions = JSON.parse(localStorage.getItem('solan_sessions')) || [];
+                return sessions.find(session => session.token === token);
+            }
+            
+            getUserByToken(token) {
+                const session = this.getSession(token);
+                if (session) {
+                    const users = this.getUsers();
+                    return users.find(user => user.id === session.userId);
+                }
+                return null;
+            }
+            
+            generateToken() {
+                return 'solan_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            }
+            
+            saveChatMessage(userId, message, isUser = true) {
+                const users = this.getUsers();
+                const userIndex = users.findIndex(user => user.id === userId);
+                
+                if (userIndex !== -1) {
+                    if (!users[userIndex].chatHistory) {
+                        users[userIndex].chatHistory = [];
+                    }
+                    
+                    users[userIndex].chatHistory.push({
+                        id: Date.now(),
+                        message,
+                        isUser,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    this.saveUsers(users);
+                    return true;
+                }
+                return false;
+            }
+            
+            getChatHistory(userId) {
+                const user = this.getUsers().find(u => u.id === userId);
+                return user ? user.chatHistory || [] : [];
             }
         }
+        
+        // Inicializar banco de dados
+        const db = new Database();
         
         // Header scroll effect
         window.addEventListener('scroll', function() {
@@ -1610,43 +1444,28 @@
         let currentSlide = 0;
         
         function showSlide(n) {
-            // Esconde todos os slides
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-            });
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
             
-            // Remove a classe active de todos os dots
-            dots.forEach(dot => {
-                dot.classList.remove('active');
-            });
-            
-            // Mostra o slide atual e ativa o dot correspondente
             slides[n].classList.add('active');
             dots[n].classList.add('active');
             currentSlide = n;
         }
         
-        // Adiciona eventos aos dots
         dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showSlide(index);
-            });
+            dot.addEventListener('click', () => showSlide(index));
         });
         
-        // Troca automática de slides
         setInterval(() => {
             let nextSlide = currentSlide + 1;
-            if (nextSlide >= slides.length) {
-                nextSlide = 0;
-            }
+            if (nextSlide >= slides.length) nextSlide = 0;
             showSlide(nextSlide);
         }, 5000);
         
         // Scroll suave para links internos
-        document.querySelectorAll('.nav-link').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 
@@ -1656,87 +1475,50 @@
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
+                    
+                    if (window.innerWidth <= 768) {
+                        mainNav.style.display = 'none';
+                    }
                 }
             });
         });
         
-        // Botões para criar conta (levam para a página de login)
-        const createAccountBtns = document.querySelectorAll('#createAccountBtn, #heroCreateAccount');
+        // Modal de autenticação
+        const authModal = document.getElementById('authModal');
+        const openLoginModal = document.getElementById('openLoginModal');
+        const openSignupModal = document.getElementById('openSignupModal');
+        const closeModal = document.getElementById('closeModal');
+        const heroCreateAccount = document.getElementById('heroCreateAccount');
         
-        createAccountBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                showPage('login');
-                // Ativar a aba de criação de conta
-                switchForm('signup');
-            });
-        });
-        
-        // Botão de login
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            showPage('login');
-            switchForm('login');
-        });
-        
-        // Logo para voltar à página principal
-        document.getElementById('homeLogo').addEventListener('click', function(e) {
-            e.preventDefault();
-            showPage('main');
-        });
-        
-        // Botão "Ver Demonstração"
-        const learnMoreBtn = document.getElementById('learnMore');
-        learnMoreBtn.addEventListener('click', function() {
-            alert("Demonstração interativa da Nexus IA: Em breve você poderá experimentar uma demonstração completa da plataforma. Por enquanto, crie uma conta gratuita para acessar todos os recursos!");
-        });
-        
-        // Formulário de criação de conta na landing page
-        const createAccountForm = document.getElementById('createAccountForm');
-        if (createAccountForm) {
-            createAccountForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Validação básica
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const goal = document.getElementById('goal').value;
-                
-                if (name && email && password && goal) {
-                    // Salvar dados temporariamente
-                    localStorage.setItem('nexus_temp_user', JSON.stringify({
-                        name: name,
-                        email: email,
-                        password: password,
-                        goal: goal
-                    }));
-                    
-                    // Redirecionar para a página de login com a aba de signup ativa
-                    showPage('login');
-                    switchForm('signup');
-                    
-                    // Preencher automaticamente o formulário de cadastro
-                    setTimeout(() => {
-                        document.getElementById('signupName').value = name;
-                        document.getElementById('signupEmail').value = email;
-                        document.getElementById('signupPassword').value = password;
-                        document.getElementById('confirmPassword').value = password;
-                        showMessage('success', 'Continue preenchendo os detalhes da sua conta');
-                    }, 300);
-                } else {
-                    alert("Por favor, preencha todos os campos obrigatórios.");
-                }
-            });
+        function openModal(tab = 'login') {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            switchForm(tab);
         }
         
-        // Ajusta o menu em redimensionamento da janela
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                mainNav.style.display = '';
+        function closeAuthModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            hideMessages();
+        }
+        
+        openLoginModal.addEventListener('click', () => openModal('login'));
+        openSignupModal.addEventListener('click', () => openModal('signup'));
+        heroCreateAccount.addEventListener('click', () => openModal('signup'));
+        closeModal.addEventListener('click', closeAuthModal);
+        
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                closeAuthModal();
             }
         });
         
-        // SISTEMA DE LOGIN/REGISTRO
-        // Alternar entre abas de login e criação de conta
+        // Botão "Ver Demonstração"
+        document.getElementById('learnMore').addEventListener('click', function() {
+            alert("Demonstração interativa da Solan.ia: Em breve você poderá experimentar uma demonstração completa da plataforma. Por enquanto, crie uma conta gratuita para acessar todos os recursos!");
+        });
+        
+        // Sistema de formulários no modal
         const loginTab = document.querySelector('[data-tab="login"]');
         const signupTab = document.querySelector('[data-tab="signup"]');
         const loginForm = document.getElementById('loginForm');
@@ -1744,15 +1526,12 @@
         const switchToSignup = document.getElementById('switchToSignup');
         const switchToLogin = document.getElementById('switchToLogin');
         
-        // Função para alternar formulários
         function switchForm(formToShow) {
-            // Remover classe active de todas as abas e formulários
             loginTab.classList.remove('active');
             signupTab.classList.remove('active');
             loginForm.classList.remove('active');
             signupForm.classList.remove('active');
             
-            // Adicionar classe active à aba e formulário selecionados
             if (formToShow === 'login') {
                 loginTab.classList.add('active');
                 loginForm.classList.add('active');
@@ -1761,11 +1540,9 @@
                 signupForm.classList.add('active');
             }
             
-            // Esconder mensagens de erro/sucesso
             hideMessages();
         }
         
-        // Event listeners para as abas
         loginTab.addEventListener('click', () => switchForm('login'));
         signupTab.addEventListener('click', () => switchForm('signup'));
         switchToSignup.addEventListener('click', (e) => {
@@ -1778,8 +1555,7 @@
         });
         
         // Mostrar/ocultar senha
-        const passwordToggles = document.querySelectorAll('.password-toggle');
-        passwordToggles.forEach(toggle => {
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
             toggle.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
                 const passwordInput = document.getElementById(targetId);
@@ -1797,18 +1573,16 @@
             });
         });
         
-        // Mostrar mensagem
+        // Mensagens
         function showMessage(type, text) {
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
             const errorText = document.getElementById('errorText');
             const successText = document.getElementById('successText');
             
-            // Esconder todas as mensagens primeiro
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
             
-            // Mostrar a mensagem correta
             if (type === 'error') {
                 errorText.textContent = text;
                 errorMessage.style.display = 'block';
@@ -1818,21 +1592,18 @@
             }
         }
         
-        // Esconder todas as mensagens
         function hideMessages() {
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('successMessage').style.display = 'none';
         }
         
-        // Validação de formulário de login
-        const loginFormElement = document.getElementById('loginForm');
-        loginFormElement.addEventListener('submit', function(e) {
+        // Formulário de Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
             
-            // Validação básica
             if (!email || !password) {
                 showMessage('error', 'Por favor, preencha todos os campos.');
                 return;
@@ -1843,48 +1614,36 @@
                 return;
             }
             
-            // Simular autenticação
-            showMessage('success', 'Autenticando...');
+            // Validar usuário
+            const user = db.validateUser(email, password);
             
-            // Desabilitar botão de envio
-            const submitBtn = this.querySelector('.form-submit');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Autenticando...';
-            submitBtn.disabled = true;
-            
-            // Simular requisição ao servidor
-            setTimeout(() => {
-                // Verificar se há usuários salvos
-                const users = JSON.parse(localStorage.getItem('nexus_users') || '[]');
-                const currentUser = users.find(user => user.email === email && user.password === password);
+            if (user) {
+                // Criar sessão
+                const session = db.createSession(user.id);
                 
-                if (currentUser || (email && password.length >= 6)) {
-                    // Salvar dados do usuário logado
-                    localStorage.setItem('nexus_current_user', JSON.stringify({
-                        email: email,
-                        name: currentUser ? currentUser.name : email.split('@')[0],
-                        loggedIn: true,
-                        timestamp: new Date().getTime()
-                    }));
-                    
-                    showMessage('success', 'Login bem-sucedido! Redirecionando para a NeuroMente...');
-                    
-                    // Redirecionar para o chat após 2 segundos
-                    setTimeout(() => {
-                        showPage('chat');
-                        initializeChat();
-                    }, 2000);
-                } else {
-                    showMessage('error', 'E-mail ou senha incorretos. Tente novamente.');
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }
-            }, 1500);
+                // Salvar token no localStorage para usar na página do chat
+                localStorage.setItem('solan_token', session.token);
+                localStorage.setItem('solan_user', JSON.stringify(user));
+                
+                showMessage('success', 'Login bem-sucedido! Redirecionando para o chat...');
+                
+                // Desabilitar botão
+                const submitBtn = this.querySelector('.form-submit');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+                submitBtn.disabled = true;
+                
+                // Redirecionar após 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'pag.html';
+                }, 2000);
+            } else {
+                showMessage('error', 'E-mail ou senha incorretos. Tente novamente.');
+            }
         });
         
-        // Validação de formulário de criação de conta
-        const signupFormElement = document.getElementById('signupForm');
-        signupFormElement.addEventListener('submit', function(e) {
+        // Formulário de Cadastro
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('signupName').value.trim();
@@ -1905,8 +1664,8 @@
                 return;
             }
             
-            if (password.length < 8) {
-                showMessage('error', 'A senha deve ter pelo menos 8 caracteres.');
+            if (password.length < 6) {
+                showMessage('error', 'A senha deve ter pelo menos 6 caracteres.');
                 return;
             }
             
@@ -1920,59 +1679,38 @@
                 return;
             }
             
-            // Simular criação de conta
-            showMessage('success', 'Criando sua conta...');
+            // Verificar se e-mail já existe
+            if (db.findUserByEmail(email)) {
+                showMessage('error', 'Este e-mail já está cadastrado. Tente fazer login.');
+                return;
+            }
             
-            // Desabilitar botão de envio
+            // Criar usuário
+            const user = db.createUser({
+                name,
+                email,
+                password,
+                userType
+            });
+            
+            // Criar sessão
+            const session = db.createSession(user.id);
+            
+            // Salvar token
+            localStorage.setItem('solan_token', session.token);
+            localStorage.setItem('solan_user', JSON.stringify(user));
+            
+            showMessage('success', 'Conta criada com sucesso! Redirecionando para o chat...');
+            
+            // Desabilitar botão
             const submitBtn = this.querySelector('.form-submit');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
             submitBtn.disabled = true;
             
-            // Simular requisição ao servidor
+            // Redirecionar após 2 segundos
             setTimeout(() => {
-                // Verificar se e-mail já está em uso
-                const existingUsers = JSON.parse(localStorage.getItem('nexus_users') || '[]');
-                const emailExists = existingUsers.some(user => user.email === email);
-                
-                if (emailExists) {
-                    showMessage('error', 'Este e-mail já está registrado. Tente fazer login.');
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    return;
-                }
-                
-                // Criar novo usuário
-                const newUser = {
-                    name: name,
-                    email: email,
-                    password: password,
-                    userType: userType,
-                    createdAt: new Date().toISOString(),
-                    plan: 'free'
-                };
-                
-                // Salvar usuário
-                existingUsers.push(newUser);
-                localStorage.setItem('nexus_users', JSON.stringify(existingUsers));
-                
-                // Logar automaticamente
-                localStorage.setItem('nexus_current_user', JSON.stringify({
-                    email: email,
-                    name: name,
-                    userType: userType,
-                    loggedIn: true,
-                    plan: 'free',
-                    timestamp: new Date().getTime()
-                }));
-                
-                showMessage('success', 'Conta criada com sucesso! Redirecionando para a NeuroMente...');
-                
-                // Redirecionar para o chat após 2 segundos
-                setTimeout(() => {
-                    showPage('chat');
-                    initializeChat();
-                }, 2000);
+                window.location.href = 'pag.html';
             }, 2000);
         });
         
@@ -1982,25 +1720,23 @@
             return emailRegex.test(email);
         }
         
-        // Botões de login social (simulação)
+        // Login social (simulação)
         document.querySelectorAll('.social-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const provider = this.classList.contains('google') ? 'Google' : 'Facebook';
                 showMessage('success', `Redirecionando para login com ${provider}...`);
                 
-                // Simular redirecionamento
                 setTimeout(() => {
                     showMessage('error', 'Login social ainda não implementado. Use o formulário de login.');
                 }, 1500);
             });
         });
         
-        // Link "Esqueceu a senha?"
+        // Esqueci a senha
         document.querySelector('.forgot-password').addEventListener('click', function(e) {
             e.preventDefault();
             showMessage('success', 'Um e-mail de recuperação será enviado para o endereço cadastrado.');
             
-            // Simular envio de e-mail
             setTimeout(() => {
                 showMessage('error', 'Funcionalidade ainda não implementada. Entre em contato com o suporte.');
             }, 2000);
@@ -2008,131 +1744,27 @@
         
         // Verificar se já está logado
         window.addEventListener('load', function() {
-            const user = JSON.parse(localStorage.getItem('nexus_current_user') || 'null');
-            
-            // Se já estiver logado, mostrar página do chat
-            if (user && user.loggedIn) {
-                // Verificar se a sessão expirou (24 horas)
-                const now = new Date().getTime();
-                const sessionDuration = 24 * 60 * 60 * 1000; // 24 horas em milissegundos
-                
-                if (now - user.timestamp < sessionDuration) {
-                    showPage('chat');
-                    initializeChat();
-                } else {
-                    // Sessão expirada
-                    localStorage.removeItem('nexus_current_user');
-                    showPage('main');
+            const token = localStorage.getItem('solan_token');
+            if (token) {
+                const user = db.getUserByToken(token);
+                if (user) {
+                    // Usuário já está logado, mostrar opção de ir para o chat
+                    const loginBtn = document.getElementById('openLoginModal');
+                    loginBtn.textContent = 'Ir para o Chat';
+                    loginBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        window.location.href = 'pag.html';
+                    });
                 }
-            } else {
-                showPage('main');
             }
         });
         
-        // SISTEMA DE CHAT
-        function initializeChat() {
-            const user = JSON.parse(localStorage.getItem('nexus_current_user'));
-            if (user) {
-                // Atualizar cabeçalho do chat com nome do usuário
-                const chatHeader = document.querySelector('.chat-header');
-                chatHeader.innerHTML = `
-                    <div class="chat-avatar">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div>
-                        <div class="chat-title">NeuroMente IA</div>
-                        <div style="font-size: 14px; opacity: 0.7;">Conectado como ${user.name}</div>
-                    </div>
-                `;
+        // Ajustar menu em redimensionamento
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                mainNav.style.display = '';
             }
-            
-            // Limpar mensagens anteriores
-            document.getElementById('chatMessages').innerHTML = `
-                <div class="message ai">
-                    <strong>NeuroMente:</strong> Olá! Eu sou a NeuroMente, sua assistente de IA para desenvolvimento humano. Como posso ajudá-lo hoje?
-                </div>
-            `;
-            
-            // Adicionar evento ao botão de enviar
-            document.getElementById('sendMessage').addEventListener('click', sendChatMessage);
-            document.getElementById('chatInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendChatMessage();
-                }
-            });
-            
-            // Adicionar evento ao botão de logout
-            document.getElementById('logoutBtn').addEventListener('click', function() {
-                localStorage.removeItem('nexus_current_user');
-                showPage('main');
-            });
-        }
-        
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            // Adicionar mensagem do usuário
-            const messagesContainer = document.getElementById('chatMessages');
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message user';
-            userMessage.innerHTML = `<strong>Você:</strong> ${message}`;
-            messagesContainer.appendChild(userMessage);
-            
-            // Limpar input
-            input.value = '';
-            
-            // Scroll para baixo
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            
-            // Simular resposta da IA
-            setTimeout(() => {
-                const aiResponse = getAIResponse(message);
-                const aiMessage = document.createElement('div');
-                aiMessage.className = 'message ai';
-                aiMessage.innerHTML = `<strong>NeuroMente:</strong> ${aiResponse}`;
-                messagesContainer.appendChild(aiMessage);
-                
-                // Scroll para baixo
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 1000);
-        }
-        
-        function getAIResponse(userMessage) {
-            const responses = [
-                "Entendi seu questionamento. Vamos trabalhar juntos nisso. O que mais você gostaria de explorar sobre desenvolvimento pessoal?",
-                "Isso é muito interessante! Com base na sua pergunta, recomendo focar em pequenas ações consistentes diariamente. O que você acha?",
-                "Para esse tipo de desafio, a neurociência sugere técnicas específicas. Posso guiá-lo através de um exercício prático se quiser.",
-                "Ótima reflexão! Isso demonstra que você está no caminho certo do autoconhecimento. Como isso se relaciona com seus objetivos?",
-                "Com base no seu perfil, recomendo explorar mais sobre inteligência emocional. Posso sugerir alguns recursos específicos.",
-                "Essa é uma questão importante. Vamos quebrá-la em partes menores para facilitar a compreensão e ação.",
-                "Agradeço por compartilhar isso comigo. Vamos desenvolver uma estratégia personalizada para você."
-            ];
-            
-            // Respostas específicas para certas palavras-chave
-            const lowerMessage = userMessage.toLowerCase();
-            
-            if (lowerMessage.includes('ansiedade') || lowerMessage.includes('estresse')) {
-                return "Entendo que está lidando com ansiedade. Vamos praticar uma técnica de respiração juntos? Inspire por 4 segundos, segure por 4, expire por 6. Repita isso 5 vezes.";
-            }
-            
-            if (lowerMessage.includes('produtividade') || lowerMessage.includes('foco')) {
-                return "Para melhorar a produtividade, recomendo a técnica Pomodoro: 25 minutos de trabalho focado, 5 minutos de pausa. Posso ajudar a criar um cronograma personalizado.";
-            }
-            
-            if (lowerMessage.includes('objetivo') || lowerMessage.includes('meta')) {
-                return "Para definir metas eficazes, use o método SMART: Específicas, Mensuráveis, Atingíveis, Relevantes e Temporais. Vamos criar uma meta SMART juntos?";
-            }
-            
-            if (lowerMessage.includes('habilidade') || lowerMessage.includes('aprender')) {
-                return "Para aprender novas habilidades, recomendo a prática deliberada: foco em aspectos específicos, feedback imediato e repetição. Qual habilidade você gostaria de desenvolver?";
-            }
-            
-            // Resposta aleatória padrão
-            return responses[Math.floor(Math.random() * responses.length)];
-        }
+        });
     </script>
 </body>
 </html>
