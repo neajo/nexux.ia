@@ -1,1 +1,1120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus IA - Desenvolvimento Humano Potencializado por IA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e configurações gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
 
+        :root {
+            --primary: #3a36e0;
+            --primary-dark: #2a27b8;
+            --secondary: #00d9c0;
+            --accent: #ff4e8c;
+            --dark: #121826;
+            --darker: #0a0d17;
+            --light: #f8f9ff;
+            --gray: #8c93b3;
+            --gray-light: #e2e6f9;
+            --gradient-primary: linear-gradient(135deg, #3a36e0 0%, #6b68ff 100%);
+            --gradient-secondary: linear-gradient(135deg, #00d9c0 0%, #00b8a9 100%);
+            --gradient-dark: linear-gradient(135deg, #121826 0%, #1e2338 100%);
+            --shadow: 0 10px 30px rgba(18, 24, 38, 0.1);
+            --shadow-lg: 0 20px 50px rgba(18, 24, 38, 0.15);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container principal */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 18px 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 12px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+            font-size: 28px;
+        }
+
+        .logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-login {
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-login:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Seção Hero */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%233a36e0" fill-opacity="0.03" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--darker);
+        }
+
+        .hero-title span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 18px 36px;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            padding: 18px 36px;
+            border-radius: 50px;
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Seção de Recursos */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--darker);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--gray-light);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 24px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--darker);
+        }
+
+        .feature-desc {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        /* Seção de Depoimentos */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--gradient-dark);
+            color: white;
+        }
+
+        .testimonials .section-title,
+        .testimonials .section-subtitle {
+            color: white;
+        }
+
+        .testimonials .section-subtitle {
+            opacity: 0.8;
+        }
+
+        .testimonials-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto 0;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+        }
+
+        .testimonial-slide {
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .testimonial-text {
+            font-size: 22px;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-role {
+            color: var(--secondary);
+            font-size: 16px;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background: var(--secondary);
+        }
+
+        /* Seção de CTA */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f0f3ff 0%, #e8ecff 100%);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--darker);
+        }
+
+        .cta-subtitle {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        /* Formulário de criação de conta */
+        .account-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            text-align: left;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--darker);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--darker);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--gray-light);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero::before {
+                width: 100%;
+                opacity: 0.1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .btn-menu {
+                display: block;
+            }
+
+            .header-actions {
+                gap: 10px;
+            }
+
+            .btn-login {
+                padding: 8px 16px;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 16px 28px;
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .account-form {
+                padding: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .account-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span>Nexus</span> IA
+            </a>
+
+            <button class="btn-menu" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#features">Recursos</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#pricing">Preços</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-login">Entrar</button>
+                <button class="btn-primary" id="createAccountBtn">
+                    <i class="fas fa-user-plus"></i> Criar Conta
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Potencialize seu <span>desenvolvimento humano</span> com IA</h1>
+                <p class="hero-subtitle">
+                    A Nexus IA combina inteligência artificial avançada com psicologia comportamental para ajudar você a alcançar seu máximo potencial. Descubra novas habilidades, supere limites e transforme sua vida.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary" id="heroCreateAccount">
+                        <i class="fas fa-rocket"></i> Comece Agora Gratuitamente
+                    </button>
+                    <button class="btn-secondary" id="learnMore">
+                        <i class="fas fa-play-circle"></i> Ver Demonstração
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Imagem ilustrativa de IA e desenvolvimento humano -->
+                <div style="width: 100%; max-width: 500px; background: var(--gradient-primary); border-radius: var(--border-radius); padding: 20px; box-shadow: var(--shadow-lg);">
+                    <div style="background: white; border-radius: calc(var(--border-radius) - 10px); padding: 20px; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-brain" style="color: white; font-size: 24px;"></i>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; color: var(--darker);">Assistente Pessoal IA</h3>
+                                <p style="margin: 5px 0 0; color: var(--gray); font-size: 14px;">Análise de potencial em tempo real</p>
+                            </div>
+                        </div>
+                        <div style="width: 100%; background: #f0f3ff; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                            <p style="margin: 0; color: var(--darker);"><strong>Seu progresso esta semana:</strong></p>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <span style="color: var(--gray);">Habilidades cognitivas</span>
+                                <span style="color: var(--primary); font-weight: bold;">+24%</span>
+                            </div>
+                            <div style="height: 8px; background: var(--gray-light); border-radius: 4px; margin-top: 5px; overflow: hidden;">
+                                <div style="width: 75%; height: 100%; background: var(--gradient-primary); border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                        <div style="width: 100%; background: #f0f3ff; border-radius: 12px; padding: 15px;">
+                            <p style="margin: 0; color: var(--darker);"><strong>Próximo objetivo recomendado:</strong></p>
+                            <p style="margin: 10px 0 0; color: var(--gray); font-size: 14px;">Desenvolver resiliência emocional através de exercícios de mindfulness</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Como a Nexus IA transforma vidas</h2>
+            <p class="section-subtitle">
+                Utilizamos algoritmos de IA avançados para personalizar completamente sua jornada de desenvolvimento humano
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Análise de Potencial</h3>
+                    <p class="feature-desc">
+                        Identificamos seus pontos fortes e áreas de desenvolvimento através de avaliações baseadas em IA.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="feature-title">Planos Personalizados</h3>
+                    <p class="feature-desc">
+                        Crie rotas de desenvolvimento únicas, adaptadas aos seus objetivos e estilo de aprendizagem.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Coach de IA 24/7</h3>
+                    <p class="feature-desc">
+                        Tenha um assistente pessoal de IA sempre disponível para orientação e suporte emocional.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Comunidade Global</h3>
+                    <p class="feature-desc">
+                        Conecte-se com pessoas em jornadas similares para trocar experiências e apoio mútuo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Histórias de Transformação</h2>
+            <p class="section-subtitle">
+                Veja como a Nexus IA ajudou pessoas a alcançarem seu potencial máximo
+            </p>
+
+            <div class="testimonials-slider">
+                <div class="testimonial-slide active" id="slide1">
+                    <p class="testimonial-text">
+                        "A Nexus IA mudou completamente minha abordagem ao desenvolvimento pessoal. Em 6 meses, alcancei metas que achava que levaria anos. A análise de IA identificou padrões que nem eu percebia."
+                    </p>
+                    <p class="testimonial-author">Mariana Silva</p>
+                    <p class="testimonial-role">Psicóloga e Coach Executiva</p>
+                </div>
+
+                <div class="testimonial-slide" id="slide2">
+                    <p class="testimonial-text">
+                        "Como empreendedor, sempre busquei formas de melhorar minha produtividade e criatividade. A Nexus IA forneceu insights valiosos que me ajudaram a otimizar meu tempo e desenvolver habilidades de liderança que transformaram minha empresa."
+                    </p>
+                    <p class="testimonial-author">Carlos Mendonça</p>
+                    <p class="testimonial-role">CEO da TechInova Solutions</p>
+                </div>
+
+                <div class="testimonial-slide" id="slide3">
+                    <p class="testimonial-text">
+                        "Depois de usar a Nexus IA por apenas 3 meses, notei uma melhora significativa na minha confiança e capacidade de comunicação. Os exercícios personalizados são incríveis e realmente funcionam!"
+                    </p>
+                    <p class="testimonial-author">Fernanda Costa</p>
+                    <p class="testimonial-role">Estudante de Medicina</p>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="slider-dot active" data-slide="0"></button>
+                    <button class="slider-dot" data-slide="1"></button>
+                    <button class="slider-dot" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA com formulário de criação de conta -->
+    <section class="cta" id="cta">
+        <div class="container">
+            <h2 class="cta-title">Comece sua jornada hoje</h2>
+            <p class="cta-subtitle">
+                Junte-se a mais de 50.000 pessoas que estão transformando suas vidas com a Nexus IA. Crie sua conta gratuitamente e tenha acesso a uma avaliação inicial completa.
+            </p>
+
+            <div class="account-form" id="accountForm">
+                <h3 class="form-title">Criar Conta Gratuita</h3>
+                <form id="createAccountForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Nome Completo</label>
+                        <input type="text" id="name" class="form-input" placeholder="Digite seu nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" id="email" class="form-input" placeholder="seu.email@exemplo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Senha</label>
+                        <input type="password" id="password" class="form-input" placeholder="Crie uma senha segura" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="goal">Objetivo Principal</label>
+                        <select id="goal" class="form-input" required>
+                            <option value="" disabled selected>Selecione seu objetivo</option>
+                            <option value="career">Crescimento Profissional</option>
+                            <option value="emotional">Desenvolvimento Emocional</option>
+                            <option value="skills">Aquisição de Habilidades</option>
+                            <option value="productivity">Aumento de Produtividade</option>
+                            <option value="wellness">Bem-estar e Saúde Mental</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-user-plus"></i> Criar Minha Conta Gratuita
+                    </button>
+
+                    <div class="form-footer">
+                        Ao criar uma conta, você concorda com nossos <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a>.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">
+                        <i class="fas fa-brain logo-icon"></i>
+                        <span>Nexus</span> IA
+                    </a>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-top: 20px; max-width: 300px;">
+                        Potencializando o desenvolvimento humano através de inteligência artificial avançada e psicologia comportamental.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Produto</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Planos e Preços</a></li>
+                        <li><a href="#">Casos de Uso</a></li>
+                        <li><a href="#">API para Desenvolvedores</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Empresa</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Suporte</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Status do Serviço</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 Nexus IA. Todos os direitos reservados.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', function() {
+            if (mainNav.style.display === 'block') {
+                mainNav.style.display = 'none';
+            } else {
+                mainNav.style.display = 'block';
+                mainNav.style.position = 'absolute';
+                mainNav.style.top = '100%';
+                mainNav.style.left = '0';
+                mainNav.style.width = '100%';
+                mainNav.style.backgroundColor = 'white';
+                mainNav.style.padding = '20px';
+                mainNav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Slider de depoimentos
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            // Esconde todos os slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Remove a classe active de todos os dots
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            // Mostra o slide atual e ativa o dot correspondente
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+            currentSlide = n;
+        }
+
+        // Adiciona eventos aos dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Troca automática de slides
+        setInterval(() => {
+            let nextSlide = currentSlide + 1;
+            if (nextSlide >= slides.length) {
+                nextSlide = 0;
+            }
+            showSlide(nextSlide);
+        }, 5000);
+
+        // Scroll suave para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Fecha o menu mobile se aberto
+                    if (window.innerWidth <= 768) {
+                        mainNav.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Botões para criar conta
+        const createAccountBtns = document.querySelectorAll('#createAccountBtn, #heroCreateAccount');
+        const accountForm = document.getElementById('accountForm');
+        
+        createAccountBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: accountForm.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Botão "Ver Demonstração"
+        const learnMoreBtn = document.getElementById('learnMore');
+        learnMoreBtn.addEventListener('click', function() {
+            alert("Demonstração interativa da Nexus IA: Em breve você poderá experimentar uma demonstração completa da plataforma. Por enquanto, crie uma conta gratuita para acessar todos os recursos!");
+        });
+
+        // Formulário de criação de conta
+        const createAccountForm = document.getElementById('createAccountForm');
+        createAccountForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validação básica
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const goal = document.getElementById('goal').value;
+            
+            if (name && email && password && goal) {
+                // Simulação de envio do formulário
+                const submitBtn = this.querySelector('.form-submit');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert(`Conta criada com sucesso, ${name}! Verifique seu e-mail (${email}) para confirmar sua conta e começar sua jornada de desenvolvimento com a Nexus IA.`);
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    createAccountForm.reset();
+                }, 1500);
+            } else {
+                alert("Por favor, preencha todos os campos obrigatórios.");
+            }
+        });
+
+        // Ajusta o menu em redimensionamento da janela
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                mainNav.style.display = '';
+            }
+        });
+    </script>
+</body>
+</html>
