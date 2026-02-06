@@ -1,1 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus IA - Acesso à NeuroMente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e configurações globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
+        :root {
+            --primary: #ffffff;
+            --primary-dark: #f0f0f0;
+            --secondary: #1a1a1a;
+            --accent: #00d9c0;
+            --accent-glow: rgba(0, 217, 192, 0.3);
+            --dark: #000000;
+            --darker: #0a0a0a;
+            --light: #111111;
+            --gray: #888888;
+            --gray-light: #333333;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --gradient-primary: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            --gradient-secondary: linear-gradient(135deg, #00d9c0 0%, #00b8a9 100%);
+            --gradient-dark: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 30px rgba(0, 217, 192, 0.5);
+            --border-radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 30% 20%, rgba(26, 26, 26, 0.8) 0%, rgba(0, 0, 0, 0.9) 70%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+            font-size: 32px;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        .logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .logo span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-secondary);
+            border-radius: 3px;
+        }
+
+        /* Container principal */
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(0, 217, 192, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Painel de autenticação */
+        .auth-panel {
+            width: 100%;
+            max-width: 500px;
+            background: var(--gradient-card);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%);
+            animation: shine 10s infinite linear;
+        }
+
+        .auth-header {
+            padding: 40px 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .auth-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 20px;
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: var(--accent);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-secondary);
+        }
+
+        .auth-content {
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 22px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 16px;
+            transition: var(--transition);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--primary);
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 217, 192, 0.2);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input {
+            accent-color: var(--accent);
+        }
+
+        .forgot-password {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 20px;
+            background: var(--gradient-secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 15px;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .form-submit:hover::before {
+            left: 0;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--gray);
+            font-size: 15px;
+        }
+
+        .form-footer a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: var(--gray);
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .social-btn.google:hover {
+            background: #DB4437;
+            border-color: #DB4437;
+        }
+
+        .social-btn.facebook:hover {
+            background: #4267B2;
+            border-color: #4267B2;
+        }
+
+        /* Informações extras */
+        .auth-extra {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+
+        .auth-extra a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Mensagens de erro/sucesso */
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .message.error {
+            background: rgba(255, 87, 87, 0.1);
+            border: 1px solid rgba(255, 87, 87, 0.3);
+            color: #ff5757;
+        }
+
+        .message.success {
+            background: rgba(0, 217, 192, 0.1);
+            border: 1px solid rgba(0, 217, 192, 0.3);
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--primary);
+            padding: 40px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Animações */
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .auth-panel {
+                max-width: 100%;
+            }
+            
+            .auth-header, .auth-content {
+                padding: 30px 25px;
+            }
+            
+            .auth-title {
+                font-size: 30px;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .auth-header, .auth-content {
+                padding: 25px 20px;
+            }
+            
+            .auth-title {
+                font-size: 26px;
+            }
+            
+            .auth-subtitle {
+                font-size: 16px;
+            }
+            
+            .auth-tab {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span>NEXUS</span> IA
+            </a>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <div class="main-container">
+        <div class="auth-panel">
+            <div class="auth-header">
+                <h1 class="auth-title">Acesse a NeuroMente</h1>
+                <p class="auth-subtitle">Entre na primeira IA que pensa antes de agir</p>
+                
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Entrar</button>
+                    <button class="auth-tab" data-tab="signup">Criar Conta</button>
+                </div>
+            </div>
+            
+            <div class="auth-content">
+                <!-- Mensagens -->
+                <div id="errorMessage" class="message error">
+                    <i class="fas fa-exclamation-circle"></i> <span id="errorText">E-mail ou senha incorretos. Tente novamente.</span>
+                </div>
+                
+                <div id="successMessage" class="message success">
+                    <i class="fas fa-check-circle"></i> <span id="successText">Conta criada com sucesso! Redirecionando...</span>
+                </div>
+                
+                <!-- Formulário de Login -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="seu.email@exemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Senha</label>
+                        <div class="password-container">
+                            <input type="password" id="loginPassword" class="form-input" placeholder="Sua senha" required>
+                            <button type="button" class="password-toggle" data-target="loginPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-sign-in-alt"></i> Acessar NeuroMente
+                    </button>
+                    
+                    <div class="divider">
+                        <span>ou continue com</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="form-footer">
+                        Não tem uma conta? <a href="#" id="switchToSignup">Crie uma agora</a>
+                    </div>
+                </form>
+                
+                <!-- Formulário de Criação de Conta -->
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="signupName">Nome Completo</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="Como você gostaria de ser chamado?" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="signupEmail">E-mail</label>
+                        <input type="email" id="signupEmail" class="form-input" placeholder="seu.melhor@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="signupPassword">Senha</label>
+                        <div class="password-container">
+                            <input type="password" id="signupPassword" class="form-input" placeholder="Crie uma senha segura" required>
+                            <button type="button" class="password-toggle" data-target="signupPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirmar Senha</label>
+                        <div class="password-container">
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="Digite novamente sua senha" required>
+                            <button type="button" class="password-toggle" data-target="confirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="userType">Tipo de Conta</label>
+                        <select id="userType" class="form-input" required>
+                            <option value="" disabled selected>Selecione como você vai usar a Nexus IA</option>
+                            <option value="personal">Uso Pessoal / Desenvolvimento</option>
+                            <option value="professional">Uso Profissional</option>
+                            <option value="creative">Artista / Criador de Conteúdo</option>
+                            <option value="student">Estudante / Pesquisador</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="termsAgreement" required>
+                            <span>Concordo com os <a href="#" style="color: var(--accent);">Termos de Serviço</a> e <a href="#" style="color: var(--accent);">Política de Privacidade</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <i class="fas fa-user-plus"></i> Criar Minha Conta
+                    </button>
+                    
+                    <div class="form-footer">
+                        Já tem uma conta? <a href="#" id="switchToLogin">Faça login</a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="auth-extra">
+                <p>Ao acessar, você concorda em contribuir com o desenvolvimento da NeuroMente da Nexus IA.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">Sobre a Nexus IA</a>
+                <a href="#">NeuroMente</a>
+                <a href="#">VibeZZ</a>
+                <a href="#">Suporte</a>
+                <a href="#">Privacidade</a>
+            </div>
+            <p class="copyright">&copy; 2023 Nexus IA. NeuroMente é uma tecnologia patenteada.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Alternar entre abas de login e criação de conta
+        const loginTab = document.querySelector('[data-tab="login"]');
+        const signupTab = document.querySelector('[data-tab="signup"]');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        
+        // Função para alternar formulários
+        function switchForm(formToShow) {
+            // Remover classe active de todas as abas e formulários
+            loginTab.classList.remove('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.remove('active');
+            signupForm.classList.remove('active');
+            
+            // Adicionar classe active à aba e formulário selecionados
+            if (formToShow === 'login') {
+                loginTab.classList.add('active');
+                loginForm.classList.add('active');
+            } else {
+                signupTab.classList.add('active');
+                signupForm.classList.add('active');
+            }
+            
+            // Esconder mensagens de erro/sucesso
+            hideMessages();
+        }
+        
+        // Event listeners para as abas
+        loginTab.addEventListener('click', () => switchForm('login'));
+        signupTab.addEventListener('click', () => switchForm('signup'));
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm('signup');
+        });
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm('login');
+        });
+        
+        // Mostrar/ocultar senha
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        passwordToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // Mostrar mensagem
+        function showMessage(type, text) {
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const errorText = document.getElementById('errorText');
+            const successText = document.getElementById('successText');
+            
+            // Esconder todas as mensagens primeiro
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Mostrar a mensagem correta
+            if (type === 'error') {
+                errorText.textContent = text;
+                errorMessage.style.display = 'block';
+            } else if (type === 'success') {
+                successText.textContent = text;
+                successMessage.style.display = 'block';
+            }
+        }
+        
+        // Esconder todas as mensagens
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        // Validação de formulário de login
+        const loginFormElement = document.getElementById('loginForm');
+        loginFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            // Validação básica
+            if (!email || !password) {
+                showMessage('error', 'Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showMessage('error', 'Por favor, insira um e-mail válido.');
+                return;
+            }
+            
+            // Simular autenticação
+            showMessage('success', 'Autenticando...');
+            
+            // Desabilitar botão de envio
+            const submitBtn = this.querySelector('.form-submit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Autenticando...';
+            submitBtn.disabled = true;
+            
+            // Simular requisição ao servidor
+            setTimeout(() => {
+                // Verificar se é uma conta de teste
+                const testAccounts = [
+                    { email: 'teste@nexus.ia', password: 'teste123' },
+                    { email: 'usuario@exemplo.com', password: 'senha123' }
+                ];
+                
+                const isValidAccount = testAccounts.some(account => 
+                    account.email === email && account.password === password
+                );
+                
+                if (isValidAccount || (email && password.length >= 6)) {
+                    showMessage('success', 'Login bem-sucedido! Redirecionando para a Nexus IA...');
+                    
+                    // Salvar estado de login (simulação)
+                    localStorage.setItem('nexus_user', JSON.stringify({
+                        email: email,
+                        name: email.split('@')[0],
+                        loggedIn: true,
+                        timestamp: new Date().getTime()
+                    }));
+                    
+                    // Redirecionar para a página do chat após 2 segundos
+                    setTimeout(() => {
+                        window.location.href = 'index.pag2';
+                    }, 2000);
+                } else {
+                    showMessage('error', 'E-mail ou senha incorretos. Tente novamente.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }, 1500);
+        });
+        
+        // Validação de formulário de criação de conta
+        const signupFormElement = document.getElementById('signupForm');
+        signupFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const userType = document.getElementById('userType').value;
+            const termsAgreement = document.getElementById('termsAgreement').checked;
+            
+            // Validação
+            if (!name || !email || !password || !confirmPassword || !userType) {
+                showMessage('error', 'Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showMessage('error', 'Por favor, insira um e-mail válido.');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showMessage('error', 'A senha deve ter pelo menos 8 caracteres.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage('error', 'As senhas não coincidem.');
+                return;
+            }
+            
+            if (!termsAgreement) {
+                showMessage('error', 'Você deve concordar com os Termos de Serviço e Política de Privacidade.');
+                return;
+            }
+            
+            // Simular criação de conta
+            showMessage('success', 'Criando sua conta...');
+            
+            // Desabilitar botão de envio
+            const submitBtn = this.querySelector('.form-submit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
+            submitBtn.disabled = true;
+            
+            // Simular requisição ao servidor
+            setTimeout(() => {
+                // Verificar se e-mail já está em uso (simulação)
+                const existingUsers = JSON.parse(localStorage.getItem('nexus_users') || '[]');
+                const emailExists = existingUsers.some(user => user.email === email);
+                
+                if (emailExists) {
+                    showMessage('error', 'Este e-mail já está registrado. Tente fazer login.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+                
+                // Criar novo usuário
+                const newUser = {
+                    name: name,
+                    email: email,
+                    userType: userType,
+                    createdAt: new Date().toISOString(),
+                    plan: 'free' // Plano gratuito por padrão
+                };
+                
+                // Salvar usuário (simulação)
+                existingUsers.push(newUser);
+                localStorage.setItem('nexus_users', JSON.stringify(existingUsers));
+                
+                // Logar automaticamente
+                localStorage.setItem('nexus_user', JSON.stringify({
+                    email: email,
+                    name: name,
+                    userType: userType,
+                    loggedIn: true,
+                    plan: 'free',
+                    timestamp: new Date().getTime()
+                }));
+                
+                showMessage('success', 'Conta criada com sucesso! Redirecionando para a Nexus IA...');
+                
+                // Redirecionar para a página do chat após 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'index.pag2';
+                }, 2000);
+            }, 2000);
+        });
+        
+        // Validação de e-mail
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Botões de login social (simulação)
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const provider = this.classList.contains('google') ? 'Google' : 'Facebook';
+                showMessage('success', `Redirecionando para login com ${provider}...`);
+                
+                // Simular redirecionamento
+                setTimeout(() => {
+                    showMessage('error', 'Login social ainda não implementado. Use o formulário de login.');
+                }, 1500);
+            });
+        });
+        
+        // Link "Esqueceu a senha?"
+        document.querySelector('.forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            showMessage('success', 'Um e-mail de recuperação será enviado para o endereço cadastrado.');
+            
+            // Simular envio de e-mail
+            setTimeout(() => {
+                showMessage('error', 'Funcionalidade ainda não implementada. Entre em contato com o suporte.');
+            }, 2000);
+        });
+        
+        // Verificar se já está logado
+        window.addEventListener('load', function() {
+            const user = JSON.parse(localStorage.getItem('nexus_user') || 'null');
+            
+            // Se já estiver logado, redirecionar direto para o chat
+            if (user && user.loggedIn) {
+                // Verificar se a sessão expirou (24 horas)
+                const now = new Date().getTime();
+                const sessionDuration = 24 * 60 * 60 * 1000; // 24 horas em milissegundos
+                
+                if (now - user.timestamp < sessionDuration) {
+                    showMessage('success', 'Você já está logado. Redirecionando...');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.pag2';
+                    }, 1500);
+                } else {
+                    // Sessão expirada
+                    localStorage.removeItem('nexus_user');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
